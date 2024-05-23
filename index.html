@@ -26,8 +26,19 @@
         document.body.style.textAlign = "left";
       }
        
-        let tg = window.Telegram.WebApp;
-        tg.expand()
+        document.body.appendChild(script);
+            let tg = window.Telegram.WebApp;
+            tg.expand();
+      window.addEventListener('telegram-web-app', function(event) {
+            var data = event.detail;
+            var userId = data.user_id;
+            console.log("User ID:", userId);
+            sendUserIdToUnity(userId);
+        });
+        function sendUserIdToUnity(userId) {
+          
+          MyGameInstance.SendMessage("WebGlReciver", "ReceiveMessageFromJS", userId);
+        }
 
       createUnityInstance(document.querySelector("#unity-canvas"), {
         dataUrl: "Build/CoinDropHost.data",
