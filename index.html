@@ -109,10 +109,7 @@
           progressBarFull.style.width = 100 * progress + "%";
               }).then((unityInstance) => {
                 MyGameInstance = unityInstance;
-                let tg = window.Telegram.WebApp;
-      var data = `${tg.initDataUnsafe.user.first_name} ${tg.initDataUnsafe.user.last_name}`;
-      
-      MyGameInstance.SendMessage("WebGlReciver", "ReceiveMessageFromJS", data);
+               
                 loadingBar.style.display = "none";
                 fullscreenButton.onclick = () => {
                   unityInstance.SetFullscreen(1);
