@@ -122,10 +122,11 @@
 
        if (window.Telegram.WebApp) {
             console.log('Telegram WebApp API is available.');
-            window.Telegram.WebApp.onEvent('qrTextReceived', async (obj) => {
-                console.log('#qrTextReceived', obj);
+           const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+           console.log('User ID:', userId);
                 if (MyGameInstance) {
-                    MyGameInstance.SendMessage("WebGlReciver", "ReceiveMessageFromJS", obj.data);
+                     console.log('Unity Instance is available.');
+                    MyGameInstance.SendMessage("WebGlReciver", "ReceiveMessageFromJS", userId);
                 } else {
                     console.error('MyGameInstance is not initialized.');
                 }
