@@ -119,8 +119,10 @@
             };
 
       document.body.appendChild(script);
-            let tg = window.Telegram.WebApp;
-            tg.expand();
+
+      let tg = window.Telegram.WebApp;
+      tg.expand();
+      
       window.addEventListener('telegram-web-app', function(event) {
             var data = event.detail;
             var userId = data.user_id;
@@ -128,9 +130,12 @@
             sendUserIdToUnity(userId);
         });
         function sendUserIdToUnity(userId) {
-          
+        if (MyGameInstance != null) {
           MyGameInstance.SendMessage("WebGlReciver", "ReceiveMessageFromJS", userId);
+        } else {
+          console.error("MyGameInstance is not initialized.");
         }
+      }
 
     </script>
   </body>
