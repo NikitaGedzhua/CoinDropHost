@@ -101,37 +101,44 @@
 
       loadingBar.style.display = "block";
 
-       var script = document.createElement("script");
-      var MyGameInstance = null;
-      script.src = loaderUrl;
-      script.onload = () => {
-        createUnityInstance(canvas, config, (progress)  => {
-          progressBarFull.style.width = 100 * progress + "%";
-              }).then((unityInstance) => {
+      
+     var MyGameInstance = null;
+        var script = document.createElement("script");
+        script.src = loaderUrl;
+        script.onload = () => {
+            createUnityInstance(canvas, config, (progress) => {
+                progressBarFull.style.width = 100 * progress + "%";
+            }).then((unityInstance) => {
                 MyGameInstance = unityInstance;
                 loadingBar.style.display = "none";
                 fullscreenButton.onclick = () => {
-                  unityInstance.SetFullscreen(1);
+                    unityInstance.SetFullscreen(1);
                 };
-              }).catch((message) => {
+                
+                // Telegram WebApp API integration
+                let tg = window.Telegram.WebApp;
+                tg.expand();
+                
+                if (tg) {
+                    console.log('Telegram WebApp API is available.');
+                    const userId = tg.initDataUnsafe.user.id;
+                    console.log('User ID:', userId);
+                    if (MyGameInstance) {
+                        console.log('Unity Instance is available.');
+                        MyGameInstance.SendMessage("WebGlReciver", "ReceiveMessageFromJS", userId);
+                    } else {
+                        console.error('MyGameInstance is not initialized.');
+                    }
+                } else {
+                    console.error('Telegram WebApp API is not available.');
+                }
+                
+            }).catch((message) => {
                 alert(message);
-              });
-            };
+            });
+        };
 
-      document.body.appendChild(script);
-            let tg = window.Telegram.WebApp;
-            tg.expand();
-      window.addEventListener('telegram-web-app', function(event) {
-            var data = event.detail;
-            var userId = data.user_id;
-            console.log("User ID:", userId);
-            sendUserIdToUnity(userId);
-        });
-        function sendUserIdToUnity(userId) {
-          
-          MyGameInstance.SendMessage("WebGlReciver", "ReceiveMessageFromJS", userId);
-        }
-
+        document.body.appendChild(script);
     </script>
   </body>
 </html>
