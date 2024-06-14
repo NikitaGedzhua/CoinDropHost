@@ -121,8 +121,8 @@
                 
                 if (tg) {
                     console.log('Telegram WebApp API is available.');
-                    const userId = tg.initDataUnsafe.user.id.toString();;
-                    console.log('User ID:', userId);
+                    const userId = tg.initDataUnsafe.user.id.toString();
+                    console.log('User tg ID:', userId);
                     if (MyGameInstance) {
                         console.log('Unity Instance is available.');
                         MyGameInstance.SendMessage("TgApi", "GetId", userId);
