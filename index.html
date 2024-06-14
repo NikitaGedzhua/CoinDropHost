@@ -120,23 +120,19 @@
 
       document.body.appendChild(script);
 
-      let tg = window.Telegram.WebApp;
-      tg.expand();
-      
-      window.addEventListener('telegram-web-app', function(event) {
-            var data = event.detail;
-            var userId = data.user_id;
-            console.log("User ID:", userId);
-            sendUserIdToUnity(userId);
-        });
-        function sendUserIdToUnity(userId) {
-        if (MyGameInstance != null) {
-          MyGameInstance.SendMessage("WebGlReciver", "ReceiveMessageFromJS", userId);
+       if (window.Telegram.WebApp) {
+            console.log('Telegram WebApp API is available.');
+            window.Telegram.WebApp.onEvent('qrTextReceived', async (obj) => {
+                console.log('#qrTextReceived', obj);
+                if (MyGameInstance) {
+                    MyGameInstance.SendMessage("WebGlReciver", "ReceiveMessageFromJS", obj.data);
+                } else {
+                    console.error('MyGameInstance is not initialized.');
+                }
+            });
         } else {
-          console.error("MyGameInstance is not initialized.");
+            console.error('Telegram WebApp API is not available.');
         }
-      }
-
     </script>
   </body>
 </html>
