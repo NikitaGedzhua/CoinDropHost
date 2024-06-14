@@ -125,7 +125,7 @@
                     console.log('User ID:', userId);
                     if (MyGameInstance) {
                         console.log('Unity Instance is available.');
-                        MyGameInstance.SendMessage("WebGlReciver", "ReceiveMessageFromJS", userId);
+                        MyGameInstance.SendMessage("TgApi", "GetId", userId);
                     } else {
                         console.error('MyGameInstance is not initialized.');
                     }
