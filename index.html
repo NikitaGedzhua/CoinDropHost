@@ -120,9 +120,12 @@
 
       document.body.appendChild(script);
 
-       if (window.Telegram.WebApp) {
-            console.log('Telegram WebApp API is available.');
-           const userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+      let tg = window.Telegram.WebApp;
+      tg.expand();
+      
+       if (tg) {
+          console.log('Telegram WebApp API is available.');
+           const userId = tg.initDataUnsafe.user.id;
            console.log('User ID:', userId);
                 if (MyGameInstance) {
                      console.log('Unity Instance is available.');
