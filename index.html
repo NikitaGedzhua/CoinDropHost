@@ -139,7 +139,7 @@
 
         function openExternalURL(url) {
         if (window.Telegram && window.Telegram.WebApp) {
-            window.Telegram.WebApp.openUrl(url);
+            window.Telegram.WebApp.openLink(url);
         } else {
             console.error('Telegram WebApp API is not available.');
             // Fallback to opening the URL using window.open or Application.OpenURL
