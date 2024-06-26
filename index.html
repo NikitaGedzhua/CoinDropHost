@@ -138,7 +138,7 @@
         };
 
       
-        function openExternalURL(url) {
+        function openURL(url) {
         if (window.Telegram && window.Telegram.WebApp) {
             window.Telegram.WebApp.openLink(url);
         } else {
@@ -147,19 +147,8 @@
             window.open(url, '_blank');
         }
 
-  function openTelegramLink(url) {
-  if (window.telegram && window.telegram.webApp) {
-    try {
-      window.telegram.webApp.openLink(url);
-    } catch (e) {
-      console.error("Ошибка при открытии ссылки через telegram.webApp.openLink: ", e);
-      // Фоллбэк для Android
-      window.location.href = url;
-    }
-  } else {
-    // Фоллбэк для Android
+  function openExternalURL(url) {
     window.location.href = url;
-  }
 }
     }
 
