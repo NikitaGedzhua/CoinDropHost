@@ -137,22 +137,20 @@
             });
         };
 
-      
-        function openURL(url) {
+      function openURL(url) {
         if (window.Telegram && window.Telegram.WebApp) {
-            window.Telegram.WebApp.openLink(url);
+          window.Telegram.WebApp.openLink(url);
         } else {
-            console.error('Telegram WebApp API is not available.');
-            // Fallback to opening the URL using window.open or Application.OpenURL
-            window.open(url, '_blank');
+          console.error('Telegram WebApp API is not available.');
+          window.open(url, '_blank');
         }
+      }
 
-  function openExternalURL(url) {
-    window.location.href = url;
-}
-    }
+      function openExternalURL(url) {
+        window.location.href = url;
+      }
 
-        document.body.appendChild(script);
+      document.body.appendChild(script);
     </script>
   </body>
 </html>
