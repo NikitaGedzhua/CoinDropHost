@@ -147,7 +147,18 @@
         }
 
   function openTelegramLink(url) {
-  window.location.href = url;
+  if (window.telegram && window.telegram.webApp) {
+    try {
+      window.telegram.webApp.openLink(url);
+    } catch (e) {
+      console.error("Ошибка при открытии ссылки через telegram.webApp.openLink: ", e);
+      // Фоллбэк для Android
+      window.location.href = url;
+    }
+  } else {
+    // Фоллбэк для Android
+    window.location.href = url;
+  }
 }
     }
 
