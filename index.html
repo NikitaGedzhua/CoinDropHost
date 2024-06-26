@@ -137,19 +137,17 @@
             });
         };
 
-  function openExternalURL(url) {
-  if (window.telegram && window.telegram.webApp) {
-    try {
-      window.telegram.webApp.openLink(url);
-    } catch (e) {
-      console.error("Ошибка при открытии ссылки через telegram.webApp.openLink: ", e);
-      // Фоллбэк для Android
-      window.location.href = url;
-    }
-  } else {
-    // Фоллбэк для Android
-    window.location.href = url;
-  }
+        function openExternalURL(url) {
+        if (window.Telegram && window.Telegram.WebApp) {
+            window.Telegram.WebApp.openLink(url);
+        } else {
+            console.error('Telegram WebApp API is not available.');
+            // Fallback to opening the URL using window.open or Application.OpenURL
+            window.open(url, '_blank');
+        }
+
+  function openTelegramLink(url) {
+  window.location.href = url;
 }
     }
 
